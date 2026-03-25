@@ -38,3 +38,14 @@
     <script src="scripts/bootstrap.min.js"></script>
 </body>
 </html>
+
+<script>
+    window.onload = function() {
+        console.log("Página cargada. Iniciando motor...");
+        // Si el canvas no aparece, forzamos la inicialización aquí
+        if (!document.querySelector('canvas')) {
+            // Intentamos disparar el evento que espera el juego
+            window.dispatchEvent(new Event('resize'));
+        }
+    };
+</script>

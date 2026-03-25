@@ -4,7 +4,8 @@ html, body {
   height: 100%;
   overflow: hidden;
   background-color: #5dc7e7;
-  background-image: url(tiled-bg.png);
+  /* CAMBIO: Se eliminó "assets/" */
+  background-image: url("tiled-bg.png"); 
   background-repeat: repeat;
   background-position: top left;
 }
@@ -12,11 +13,13 @@ html, body {
 #container {
   width: 100%;
   height: 100%;
-  position: relative;
+  position: absolute; /* Cambiado a absolute para capas correctas */
+  top: 0;
+  left: 0;
   z-index: 1;
 }
 
-/* Botones de modos */
+/* Botones de mundos */
 .worldSwitcher {
   position: fixed;
   top: 50%;
@@ -26,26 +29,16 @@ html, body {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  overflow: visible;
 }
 
 .worldSwitcher__button {
   border: none;
-  border-radius: 12px;
+  background: none;
   cursor: pointer;
-  width: 188px;
-  height: 88px;
   padding: 0;
-  transform: translateX(60%); /* empieza desplazado hacia afuera */
-  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1); /* animación */
+  transition: transform 0.2s;
 }
 
 .worldSwitcher__button:hover {
-  transform: translateX(0); /* al pasar mouse, entra */
-}
-
-.worldSwitcher__button img {
-  width: 100%;
-  height: 100%;
-  border-radius: 12px;
+  transform: scale(1.1);
 }

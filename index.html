@@ -1,0 +1,40 @@
+<!doctype HTML>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <title>Crossy Road - Render</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="app-store-interstitial.css" />
+</head>
+<body>
+    <div class="worldSwitcher">
+        <button class="worldSwitcher__button" data-world="original" type="button">
+            <img alt="Original" src="assets/original-s-v2.png" width="176" height="88">
+        </button>
+        <button class="worldSwitcher__button" data-world="space" type="button">
+            <img alt="Space" src="assets/space-s-v2.png" width="176" height="88">
+        </button>
+        <button class="worldSwitcher__button" data-world="dinosaur" type="button">
+            <img alt="Dinosaur" src="assets/dinosaur-blue-s-v2.png" width="176" height="88">
+        </button>
+    </div>
+
+    <script>
+        window.PokiSDK = {
+            init: function() { return Promise.resolve(); },
+            gameLoadingStart: function() {},
+            gameLoadingFinished: function() {},
+            gameplayStart: function() {},
+            gameplayStop: function() {},
+            commercialBreak: function() { return Promise.resolve(); }
+        };
+    </script>
+
+    <script src="scripts/three.min.js"></script>
+    <script src="scripts/asset-loader.min.js"></script>
+    <script src="scripts/extra.min.js"></script>
+    <script src="scripts/game.min.js"></script>
+    <script src="scripts/bootstrap.min.js"></script>
+</body>
+</html>

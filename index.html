@@ -49,3 +49,18 @@
         }
     };
 </script>
+<script type="text/javascript">
+        window.PokiSDK = {
+            init: function() { return Promise.resolve(); },
+            gameLoadingFinished: function() {},
+            gameplayStart: function() {},
+            gameplayStop: function() {},
+            commercialBreak: function() { return Promise.resolve(); }
+        };
+    </script>
+
+    <script type="text/javascript" src="three.min.js"></script>
+    <script type="text/javascript" src="asset-loader.min.js"></script>
+    <script type="text/javascript" src="extra.min.js"></script>
+    <script type="text/javascript" src="game.min.js"></script>
+    <script type="text/javascript" src="bootstrap.min.js"></script>

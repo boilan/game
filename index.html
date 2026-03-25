@@ -3,64 +3,61 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-    <title>Crossy Road - Render</title>
+    <title>Crossy Road - Render Version</title>
+
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="app-store-interstitial.css" />
+
+    <script type="text/javascript">
+        window.PokiSDK = {
+            init: function() { 
+                console.log("PokiSDK: Init OK");
+                return Promise.resolve(); 
+            },
+            gameLoadingStart: function() {},
+            gameLoadingFinished: function() {
+                console.log("PokiSDK: Loading Finished");
+            },
+            gameplayStart: function() {},
+            gameplayStop: function() {},
+            commercialBreak: function() { return Promise.resolve(); }
+        };
+        window.pokiReady = true;
+    </script>
 </head>
 <body>
+
+    <div id="container"></div>
+
     <div class="worldSwitcher">
         <button class="worldSwitcher__button" data-world="original" type="button">
-            <img alt="Original" src="assets/original-s-v2.png" width="176" height="88">
+            <img alt="Original" src="original-s-v2.png" width="176" height="88">
         </button>
         <button class="worldSwitcher__button" data-world="space" type="button">
-            <img alt="Space" src="assets/space-s-v2.png" width="176" height="88">
+            <img alt="Space" src="space-s-v2.png" width="176" height="88">
         </button>
         <button class="worldSwitcher__button" data-world="dinosaur" type="button">
-            <img alt="Dinosaur" src="assets/dinosaur-blue-s-v2.png" width="176" height="88">
+            <img alt="Dinosaur" src="dinosaur-blue-s-v2.png" width="176" height="88">
         </button>
     </div>
-
-    <script>
-        window.PokiSDK = {
-            init: function() { return Promise.resolve(); },
-            gameLoadingStart: function() {},
-            gameLoadingFinished: function() {},
-            gameplayStart: function() {},
-            gameplayStop: function() {},
-            commercialBreak: function() { return Promise.resolve(); }
-        };
-    </script>
-
-<script src="three.min.js"></script>
-<script src="asset-loader.min.js"></script>
-<script src="extra.min.js"></script>
-<script src="game.min.js"></script>
-<script src="bootstrap.min.js"></script>
-</body>
-</html>
-
-<script>
-    window.onload = function() {
-        console.log("Página cargada. Iniciando motor...");
-        // Si el canvas no aparece, forzamos la inicialización aquí
-        if (!document.querySelector('canvas')) {
-            // Intentamos disparar el evento que espera el juego
-            window.dispatchEvent(new Event('resize'));
-        }
-    };
-</script>
-<script type="text/javascript">
-        window.PokiSDK = {
-            init: function() { return Promise.resolve(); },
-            gameLoadingFinished: function() {},
-            gameplayStart: function() {},
-            gameplayStop: function() {},
-            commercialBreak: function() { return Promise.resolve(); }
-        };
-    </script>
 
     <script type="text/javascript" src="three.min.js"></script>
     <script type="text/javascript" src="asset-loader.min.js"></script>
     <script type="text/javascript" src="extra.min.js"></script>
     <script type="text/javascript" src="game.min.js"></script>
     <script type="text/javascript" src="bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+        window.onload = function() {
+            setTimeout(function() {
+                if (window.PokiSDK && window.PokiSDK.gameLoadingFinished) {
+                    window.PokiSDK.gameLoadingFinished();
+                }
+                // Si el canvas no se ha creado, lanzamos un resize para despertar a Three.js
+                window.dispatchEvent(new Event('resize'));
+            }, 1000);
+        };
+    </script>
+
+</body>
+</html>

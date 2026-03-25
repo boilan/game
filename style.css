@@ -1,0 +1,51 @@
+html, body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: #5dc7e7;
+  background-image: url(tiled-bg.png);
+  background-repeat: repeat;
+  background-position: top left;
+}
+
+#container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+/* Botones de modos */
+.worldSwitcher {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow: visible;
+}
+
+.worldSwitcher__button {
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  width: 188px;
+  height: 88px;
+  padding: 0;
+  transform: translateX(60%); /* empieza desplazado hacia afuera */
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1); /* animación */
+}
+
+.worldSwitcher__button:hover {
+  transform: translateX(0); /* al pasar mouse, entra */
+}
+
+.worldSwitcher__button img {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+}

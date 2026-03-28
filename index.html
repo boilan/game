@@ -1,28 +1,57 @@
 <!doctype HTML>
-<html>
+<html lang="en">
 <head>
-    <title>Recuperando Juego...</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crossy Road Fix</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="app-store-interstitial.css" />
+
+    <script type="text/javascript">
+        // Engaño para el sistema de Poki
+        window.PokiSDK = {
+            init: function() { return Promise.resolve(); },
+            gameLoadingFinished: function() { console.log("Carga completa"); },
+            gameplayStart: function() {},
+            gameplayStop: function() {},
+            commercialBreak: function() { return Promise.resolve(); }
+        };
+    </script>
 </head>
 <body>
-    <div id="container" style="width:100vw; height:100vh; background: #5dc7e7;"></div>
 
-    <script src="three.min.js?v2"></script>
-    <script src="asset-loader.min.js?v2"></script>
-    <script src="extra.min.js?v2"></script>
-    <script src="game.min.js?v2"></script>
-    <script src="bootstrap.min.js?v2"></script>
+    <div id="container"></div>
+
+    <div class="worldSwitcher">
+        <button class="worldSwitcher__button" data-world="original" type="button">
+            <img alt="Original" src="original-s-v2.png" width="176" height="88">
+        </button>
+        <button class="worldSwitcher__button" data-world="space" type="button">
+            <img alt="Space" src="space-s-v2.png" width="176" height="88">
+        </button>
+        <button class="worldSwitcher__button" data-world="dinosaur" type="button">
+            <img alt="Dinosaur" src="dinosaur-blue-s-v2.png" width="176" height="88">
+        </button>
+    </div>
+
+    <script src="three.min.js"></script>
+    <script src="asset-loader.min.js"></script>
+    <script src="extra.min.js"></script>
+    <script src="game.min.js"></script>
+    <script src="bootstrap.min.js"></script>
 
     <script>
-        console.log("Revisando archivos...");
-        window.onload = function() {
-            if (typeof THREE !== 'undefined') {
-                console.log("¡MOTOR CARGADO!");
+        // ESTO ES LO QUE HACE QUE EL POLLITO APAREZCA
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                console.log("Forzando renderizado...");
+                // 1. Notificar al juego que ya cargó todo
+                if(window.PokiSDK) window.PokiSDK.gameLoadingFinished();
+                
+                // 2. Simular un cambio de tamaño de ventana para que Three.js dibuje el canvas
                 window.dispatchEvent(new Event('resize'));
-            } else {
-                console.error("EL MOTOR SIGUE SIN APARECER. Revisa los nombres en GitHub.");
-            }
-        };
+            }, 1000);
+        });
     </script>
 </body>
 </html>

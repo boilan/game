@@ -2,11 +2,40 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>Crossy Road Fix</title>
-    <link rel="stylesheet" href="style.css" />
-    <script src="poki-sdk.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Crossy Road - Force Start</title>
+    
+    <style>
+        /* Forzamos que el contenedor sea visible y ocupe toda la pantalla */
+        #container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #70cfff; /* El color celeste de fondo */
+            overflow: hidden;
+            display: block !important;
+            z-index: 1;
+        }
+        canvas {
+            display: block !important;
+        }
+    </style>
+
+    <script>
+        // Simulador de Poki para que el juego no se quede esperando anuncios
+        window.PokiSDK = {
+            init: function() { return Promise.resolve(); },
+            gameLoadingFinished: function() { console.log("¡Carga lista!"); },
+            gameplayStart: function() {},
+            gameplayStop: function() {},
+            commercialBreak: function() { return Promise.resolve(); }
+        };
+    </script>
 </head>
 <body>
+
     <div id="container"></div>
 
     <script src="three.min.js"></script>
@@ -17,11 +46,14 @@
     <script src="bootstrap.min.js"></script>
 
     <script>
-        // Si el cuadro no aparece, esto lo fuerza
-        window.onload = function() {
-            console.log("Intentando despertar el motor...");
-            window.dispatchEvent(new Event('resize'));
-        };
+        // Este script corre DESPUÉS de cargar todo para asegurar el arranque
+        window.addEventListener('load', function() {
+            const container = document.getElementById('container');
+            if (container && !document.querySelector('canvas')) {
+                console.log("Forzando el resize para despertar el canvas...");
+                window.dispatchEvent(new Event('resize'));
+            }
+        });
     </script>
 </body>
 </html>

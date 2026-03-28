@@ -2,42 +2,32 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Crossy Road - Force Start</title>
+    <title>Crossy Road - Force Mode</title>
+    <link rel="stylesheet" href="style.css" />
     
-    <style>
-        /* Forzamos que el contenedor sea visible y ocupe toda la pantalla */
-        #container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: #70cfff; /* El color celeste de fondo */
-            overflow: hidden;
-            display: block !important;
-            z-index: 1;
-        }
-        canvas {
-            display: block !important;
-        }
-    </style>
-
     <script>
-        // Simulador de Poki para que el juego no se quede esperando anuncios
+        // 1. FORZAR EL CONTENEDOR ANTES DE CARGAR NADA
+        (function() {
+            const container = document.createElement('div');
+            container.id = 'container';
+            // Le damos estilo por si el CSS falla
+            container.style.position = 'absolute';
+            container.style.top = '0';
+            container.style.left = '0';
+            container.style.width = '100%';
+            container.style.height = '100%';
+            document.documentElement.appendChild(container);
+            console.log("🚀 Contenedor inyectado manualmente");
+        })();
+
+        // 2. MANTENER EL ENGAÑO DE POKI
         window.PokiSDK = {
             init: function() { return Promise.resolve(); },
-            gameLoadingFinished: function() { console.log("¡Carga lista!"); },
-            gameplayStart: function() {},
-            gameplayStop: function() {},
-            commercialBreak: function() { return Promise.resolve(); }
+            gameLoadingFinished: function() { console.log("✅ Juego cargado"); }
         };
     </script>
 </head>
 <body>
-
-    <div id="container"></div>
-
     <script src="three.min.js"></script>
     <script src="tween.min.js"></script>
     <script src="asset-loader.min.js"></script>
@@ -46,14 +36,12 @@
     <script src="bootstrap.min.js"></script>
 
     <script>
-        // Este script corre DESPUÉS de cargar todo para asegurar el arranque
-        window.addEventListener('load', function() {
-            const container = document.getElementById('container');
-            if (container && !document.querySelector('canvas')) {
-                console.log("Forzando el resize para despertar el canvas...");
+        window.onload = function() {
+            // El 'empujón' final para que aparezca el canvas
+            setTimeout(() => {
                 window.dispatchEvent(new Event('resize'));
-            }
-        });
+            }, 500);
+        };
     </script>
 </body>
 </html>

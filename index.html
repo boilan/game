@@ -2,27 +2,32 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>Crossy Road Fix</title>
-    <link rel="stylesheet" href="style.css" />
+    <title>Crossy Road Test</title>
+    <style>
+        body { margin: 0; background-color: #70cfff; }
+        #container { width: 100vw; height: 100vh; }
+    </style>
+</head>
+<body>
+
+    <div id="container"></div>
+
     <script src="three.min.js"></script>
     <script src="tween.min.js"></script>
     <script src="asset-loader.min.js"></script>
-</head>
-<body>
-    <div id="container"></div>
-
+    
     <script src="extra.min.js"></script>
     <script src="game.min.js"></script>
     <script src="bootstrap.min.js"></script>
 
     <script>
-        // Forzamos el encendido del motor
-        window.onload = function() {
-            setTimeout(function() {
+        console.log("Chequeo de arranque...");
+        window.addEventListener('load', () => {
+            if(document.getElementById('container')) {
+                console.log("Contenedor detectado, enviando señal de inicio...");
                 window.dispatchEvent(new Event('resize'));
-                console.log("Motor reiniciado");
-            }, 1000);
-        };
+            }
+        });
     </script>
 </body>
 </html>

@@ -2,43 +2,32 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crossy Road - Final Fix</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <title>Crossy Road - Proyecto</title>
+    
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="app-store-interstitial.css" />
     <link rel="stylesheet" href="8bitwonder.css" />
     <link rel="stylesheet" href="EditUndoBrk.css" />
 
-    <script type="text/javascript">
-        window.PokiSDK = {
-            init: function() { return Promise.resolve(); },
-            gameLoadingFinished: function() { console.log("Juego listo"); },
-            gameplayStart: function() {},
-            gameplayStop: function() {},
-            commercialBreak: function() { return Promise.resolve(); }
-        };
-    </script>
+    <script src="poki-sdk.js"></script>
+
+    <script src="three.min.js"></script>
+    <script src="tween.min.js"></script>
+    <script src="asset-loader.min.js"></script>
 </head>
 <body>
-
     <div id="container"></div>
 
-    <script src="tween.min.js"></script> <script src="three.min.js"></script> <script src="asset-loader.min.js"></script> <script src="extra.min.js"></script> <script src="game.min.js"></script> <script src="bootstrap.min.js"></script> <script>
-        // Este bloque obliga al navegador a reintentar si el canvas es null
+    <script src="extra.min.js"></script>
+    <script src="game.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+
+    <script>
+        // Esto fuerza al juego a ocupar toda la pantalla al cargar
         window.onload = function() {
-            let intentos = 0;
-            const chequearCanvas = setInterval(function() {
-                const canvas = document.querySelector('canvas');
-                if (canvas) {
-                    console.log("¡Canvas creado!");
-                    window.dispatchEvent(new Event('resize'));
-                    clearInterval(chequearCanvas);
-                } else {
-                    intentos++;
-                    console.log("Reintentando arranque... (Intento " + intentos + ")");
-                    // Forzamos el evento que bootstrap.min.js está esperando
-                    window.dispatchEvent(new Event('resize'));
-                }
-                if (intentos > 10) clearInterval(chequearCanvas);
+            setTimeout(function() {
+                window.dispatchEvent(new Event('resize'));
             }, 1000);
         };
     </script>

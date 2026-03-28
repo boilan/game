@@ -1,44 +1,43 @@
 html, body {
   margin: 0;
+  padding: 0;
   width: 100%;
   height: 100%;
   overflow: hidden;
   background-color: #5dc7e7;
-  /* CAMBIO: Se eliminó "assets/" */
   background-image: url("tiled-bg.png"); 
   background-repeat: repeat;
-  background-position: top left;
 }
 
+/* Forzamos que el contenedor sea una capa base transparente */
 #container {
-  width: 100%;
-  height: 100%;
-  position: absolute; /* Cambiado a absolute para capas correctas */
+  position: absolute;
   top: 0;
   left: 0;
-  z-index: 1;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 5; /* Subimos un poco el nivel */
+  background: transparent !important;
 }
 
-/* Botones de mundos */
+/* Forzamos que el canvas (cuando aparezca) sea visible */
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 10;
+  display: block !important;
+}
+
 .worldSwitcher {
   position: fixed;
   top: 50%;
-  right: 0;
+  right: 10px;
   transform: translateY(-50%);
-  z-index: 100;
+  z-index: 100; /* Siempre por encima de todo */
   display: flex;
   flex-direction: column;
   gap: 8px;
-}
-
-.worldSwitcher__button {
-  border: none;
-  background: none;
-  cursor: pointer;
-  padding: 0;
-  transition: transform 0.2s;
-}
-
-.worldSwitcher__button:hover {
-  transform: scale(1.1);
 }

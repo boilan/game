@@ -2,28 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>Crossy Road Final Fix</title>
+    <title>Crossy Road Recovery</title>
     <style>
-        body { margin: 0; background: #70cfff; overflow: hidden; }
+        body { margin: 0; background: #70cfff; }
         #container { width: 100vw; height: 100vh; }
     </style>
 </head>
 <body>
     <div id="container"></div>
 
-    <script src="three.min.js"></script>
-    <script src="tween.min.js"></script>
-    <script src="asset-loader.min.js"></script>
-    <script src="extra.min.js"></script>
-    <script src="game.min.js"></script>
-    <script src="bootstrap.min.js"></script>
+    <script type="text/javascript" src="./three.min.js"></script>
+    <script type="text/javascript" src="./tween.min.js"></script>
+    <script type="text/javascript" src="./asset-loader.min.js"></script>
+    <script type="text/javascript" src="./extra.min.js"></script>
+    <script type="text/javascript" src="./game.min.js"></script>
+    <script type="text/javascript" src="./bootstrap.min.js"></script>
 
     <script>
         window.onload = function() {
-            console.log("Chequeando carga...");
-            // Si esto sale 'object', ya ganamos
-            console.log("Estado de Three:", typeof THREE);
-            setTimeout(() => { window.dispatchEvent(new Event('resize')); }, 1000);
+            if (typeof THREE !== 'undefined') {
+                console.log("🚀 ¡LOGRADO! El motor despertó.");
+                window.dispatchEvent(new Event('resize'));
+            } else {
+                console.error("❌ Los archivos siguen bloqueados por el servidor.");
+            }
         };
     </script>
 </body>

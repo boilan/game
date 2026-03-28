@@ -1,55 +1,27 @@
 <!doctype HTML>
-<html lang="en">
+<html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crossy Road</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="app-store-interstitial.css" />
-
-    <script type="text/javascript">
-        window.PokiSDK = {
-            init: function() { return Promise.resolve(); },
-            gameLoadingFinished: function() {},
-            gameplayStart: function() {},
-            gameplayStop: function() {},
-            commercialBreak: function() { return Promise.resolve(); }
-        };
-    </script>
+    <title>Recuperando Juego...</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div id="container" style="width:100vw; height:100vh; background: #5dc7e7;"></div>
 
-    <div id="container"></div>
-
-    <div class="worldSwitcher">
-        <button class="worldSwitcher__button" data-world="original" type="button">
-            <img alt="Original" src="original-s-v2.png" width="176" height="88">
-        </button>
-        <button class="worldSwitcher__button" data-world="space" type="button">
-            <img alt="Space" src="space-s-v2.png" width="176" height="88">
-        </button>
-        <button class="worldSwitcher__button" data-world="dinosaur" type="button">
-            <img alt="Dinosaur" src="dinosaur-blue-s-v2.png" width="176" height="88">
-        </button>
-    </div>
-
-    <script src="three.min.js?v=1"></script>
-    <script src="asset-loader.min.js?v=1"></script>
-    <script src="extra.min.js?v=1"></script>
-    <script src="game.min.js?v=1"></script>
-    <script src="bootstrap.min.js?v=1"></script>
+    <script src="three.min.js?v2"></script>
+    <script src="asset-loader.min.js?v2"></script>
+    <script src="extra.min.js?v2"></script>
+    <script src="game.min.js?v2"></script>
+    <script src="bootstrap.min.js?v2"></script>
 
     <script>
-        // Verificación en tiempo real
+        console.log("Revisando archivos...");
         window.onload = function() {
-            setTimeout(function() {
-                if (typeof THREE !== 'undefined') {
-                    console.log("¡MOTOR DETECTADO! Arrancando...");
-                    window.dispatchEvent(new Event('resize'));
-                } else {
-                    console.error("ERROR CRÍTICO: El motor 'three.min.js' sigue sin cargar.");
-                }
-            }, 1000);
+            if (typeof THREE !== 'undefined') {
+                console.log("¡MOTOR CARGADO!");
+                window.dispatchEvent(new Event('resize'));
+            } else {
+                console.error("EL MOTOR SIGUE SIN APARECER. Revisa los nombres en GitHub.");
+            }
         };
     </script>
 </body>

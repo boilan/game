@@ -2,32 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>Crossy Road Test</title>
+    <title>Crossy Road Final Fix</title>
     <style>
-        body { margin: 0; background-color: #70cfff; }
+        body { margin: 0; background: #70cfff; overflow: hidden; }
         #container { width: 100vw; height: 100vh; }
     </style>
 </head>
 <body>
-
     <div id="container"></div>
 
     <script src="three.min.js"></script>
     <script src="tween.min.js"></script>
     <script src="asset-loader.min.js"></script>
-    
     <script src="extra.min.js"></script>
     <script src="game.min.js"></script>
     <script src="bootstrap.min.js"></script>
 
     <script>
-        console.log("Chequeo de arranque...");
-        window.addEventListener('load', () => {
-            if(document.getElementById('container')) {
-                console.log("Contenedor detectado, enviando señal de inicio...");
-                window.dispatchEvent(new Event('resize'));
-            }
-        });
+        window.onload = function() {
+            console.log("Chequeando carga...");
+            // Si esto sale 'object', ya ganamos
+            console.log("Estado de Three:", typeof THREE);
+            setTimeout(() => { window.dispatchEvent(new Event('resize')); }, 1000);
+        };
     </script>
 </body>
 </html>

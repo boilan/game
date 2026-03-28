@@ -2,33 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-    <title>Crossy Road - Proyecto</title>
-    
+    <title>Crossy Road Fix</title>
     <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="app-store-interstitial.css" />
-    <link rel="stylesheet" href="8bitwonder.css" />
-    <link rel="stylesheet" href="EditUndoBrk.css" />
-
     <script src="poki-sdk.js"></script>
-
-    <script src="three.min.js"></script>
-    <script src="tween.min.js"></script>
-    <script src="asset-loader.min.js"></script>
 </head>
 <body>
     <div id="container"></div>
 
+    <script src="three.min.js"></script>
+    <script src="tween.min.js"></script>
+    <script src="asset-loader.min.js"></script>
     <script src="extra.min.js"></script>
     <script src="game.min.js"></script>
     <script src="bootstrap.min.js"></script>
 
     <script>
-        // Esto fuerza al juego a ocupar toda la pantalla al cargar
+        // Si el cuadro no aparece, esto lo fuerza
         window.onload = function() {
-            setTimeout(function() {
-                window.dispatchEvent(new Event('resize'));
-            }, 1000);
+            console.log("Intentando despertar el motor...");
+            window.dispatchEvent(new Event('resize'));
         };
     </script>
 </body>

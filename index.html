@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-    <title>Crossy Road</title>
+    <title>Crossy Road - Fixed</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="app-store-interstitial.css" />
 
@@ -19,7 +19,7 @@
 </head>
 <body>
 
-    <div id="container"></div>
+    <div id="container" style="width:100vw; height:100vh; display:block;"></div>
 
     <div class="worldSwitcher">
         <button class="worldSwitcher__button" data-world="original" type="button">
@@ -40,26 +40,25 @@
     <script src="bootstrap.min.js"></script>
 
     <script>
-        // ESTE BLOQUE ES EL QUE ACTIVA EL JUEGO
         window.onload = function() {
-            console.log("Forzando inicio del juego...");
+            console.log("Iniciando secuencia de arranque...");
+            
+            // Forzamos un retraso de 1 segundo para que todo el JS se asiente
             setTimeout(function() {
-                // 1. Notificamos que la carga terminó
-                if (window.PokiSDK && window.PokiSDK.gameLoadingFinished) {
-                    window.PokiSDK.gameLoadingFinished();
-                }
-                // 2. Forzamos al motor 3D a redibujarse
-                window.dispatchEvent(new Event('resize'));
-                
-                // 3. Verificamos si el canvas se creó
+                const container = document.getElementById('container');
                 const canvas = document.querySelector('canvas');
-                if (canvas) {
-                    console.log("¡Canvas detectado! El juego debería ser visible.");
+
+                if (!canvas) {
+                    console.warn("Canvas no encontrado. Forzando al motor...");
+                    // Disparamos los eventos que el juego espera para 'despertar'
+                    window.dispatchEvent(new Event('resize'));
+                    if(window.PokiSDK) window.PokiSDK.gameLoadingFinished();
                 } else {
-                    console.warn("Aún no hay canvas. Revisa si los .js cargaron bien.");
+                    console.log("¡Canvas creado con éxito!");
                 }
-            }, 1500);
+            }, 1000);
         };
     </script>
+
 </body>
 </html>

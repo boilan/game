@@ -2,45 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>Crossy Road - Force Mode</title>
+    <title>Crossy Road Fix</title>
     <link rel="stylesheet" href="style.css" />
-    
-    <script>
-        // 1. FORZAR EL CONTENEDOR ANTES DE CARGAR NADA
-        (function() {
-            const container = document.createElement('div');
-            container.id = 'container';
-            // Le damos estilo por si el CSS falla
-            container.style.position = 'absolute';
-            container.style.top = '0';
-            container.style.left = '0';
-            container.style.width = '100%';
-            container.style.height = '100%';
-            document.documentElement.appendChild(container);
-            console.log("🚀 Contenedor inyectado manualmente");
-        })();
-
-        // 2. MANTENER EL ENGAÑO DE POKI
-        window.PokiSDK = {
-            init: function() { return Promise.resolve(); },
-            gameLoadingFinished: function() { console.log("✅ Juego cargado"); }
-        };
-    </script>
-</head>
-<body>
     <script src="three.min.js"></script>
     <script src="tween.min.js"></script>
     <script src="asset-loader.min.js"></script>
+</head>
+<body>
+    <div id="container"></div>
+
     <script src="extra.min.js"></script>
     <script src="game.min.js"></script>
     <script src="bootstrap.min.js"></script>
 
     <script>
+        // Forzamos el encendido del motor
         window.onload = function() {
-            // El 'empujón' final para que aparezca el canvas
-            setTimeout(() => {
+            setTimeout(function() {
                 window.dispatchEvent(new Event('resize'));
-            }, 500);
+                console.log("Motor reiniciado");
+            }, 1000);
         };
     </script>
 </body>

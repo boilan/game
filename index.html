@@ -3,26 +3,18 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-    <title>Crossy Road - Render Version</title>
-
+    <title>Crossy Road</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="app-store-interstitial.css" />
 
     <script type="text/javascript">
         window.PokiSDK = {
-            init: function() { 
-                console.log("PokiSDK: Init OK");
-                return Promise.resolve(); 
-            },
-            gameLoadingStart: function() {},
-            gameLoadingFinished: function() {
-                console.log("PokiSDK: Loading Finished");
-            },
+            init: function() { return Promise.resolve(); },
+            gameLoadingFinished: function() {},
             gameplayStart: function() {},
             gameplayStop: function() {},
             commercialBreak: function() { return Promise.resolve(); }
         };
-        window.pokiReady = true;
     </script>
 </head>
 <body>
@@ -41,23 +33,33 @@
         </button>
     </div>
 
-    <script type="text/javascript" src="three.min.js"></script>
-    <script type="text/javascript" src="asset-loader.min.js"></script>
-    <script type="text/javascript" src="extra.min.js"></script>
-    <script type="text/javascript" src="game.min.js"></script>
-    <script type="text/javascript" src="bootstrap.min.js"></script>
+    <script src="three.min.js"></script>
+    <script src="asset-loader.min.js"></script>
+    <script src="extra.min.js"></script>
+    <script src="game.min.js"></script>
+    <script src="bootstrap.min.js"></script>
 
-    <script type="text/javascript">
+    <script>
+        // ESTE BLOQUE ES EL QUE ACTIVA EL JUEGO
         window.onload = function() {
+            console.log("Forzando inicio del juego...");
             setTimeout(function() {
+                // 1. Notificamos que la carga terminó
                 if (window.PokiSDK && window.PokiSDK.gameLoadingFinished) {
                     window.PokiSDK.gameLoadingFinished();
                 }
-                // Si el canvas no se ha creado, lanzamos un resize para despertar a Three.js
+                // 2. Forzamos al motor 3D a redibujarse
                 window.dispatchEvent(new Event('resize'));
-            }, 1000);
+                
+                // 3. Verificamos si el canvas se creó
+                const canvas = document.querySelector('canvas');
+                if (canvas) {
+                    console.log("¡Canvas detectado! El juego debería ser visible.");
+                } else {
+                    console.warn("Aún no hay canvas. Revisa si los .js cargaron bien.");
+                }
+            }, 1500);
         };
     </script>
-
 </body>
 </html>

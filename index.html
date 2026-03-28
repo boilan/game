@@ -3,15 +3,18 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crossy Road Fix</title>
+    <title>Crossy Road</title>
+    
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="app-store-interstitial.css" />
+    <link rel="stylesheet" href="8bitwonder.css" />
+    <link rel="stylesheet" href="EditUndoBrk.css" />
 
     <script type="text/javascript">
-        // Engaño para el sistema de Poki
+        // Simulación del SDK para evitar bloqueos
         window.PokiSDK = {
             init: function() { return Promise.resolve(); },
-            gameLoadingFinished: function() { console.log("Carga completa"); },
+            gameLoadingFinished: function() { console.log("PokiSDK: Carga finalizada"); },
             gameplayStart: function() {},
             gameplayStop: function() {},
             commercialBreak: function() { return Promise.resolve(); }
@@ -34,6 +37,7 @@
         </button>
     </div>
 
+    <script src="tween.min.js"></script> 
     <script src="three.min.js"></script>
     <script src="asset-loader.min.js"></script>
     <script src="extra.min.js"></script>
@@ -41,17 +45,23 @@
     <script src="bootstrap.min.js"></script>
 
     <script>
-        // ESTO ES LO QUE HACE QUE EL POLLITO APAREZCA
-        window.addEventListener('load', function() {
+        window.onload = function() {
+            console.log("Iniciando secuencia final...");
             setTimeout(function() {
-                console.log("Forzando renderizado...");
-                // 1. Notificar al juego que ya cargó todo
+                // Forzamos el aviso de carga terminada
                 if(window.PokiSDK) window.PokiSDK.gameLoadingFinished();
                 
-                // 2. Simular un cambio de tamaño de ventana para que Three.js dibuje el canvas
+                // Despertamos al motor 3D
                 window.dispatchEvent(new Event('resize'));
+                
+                // Verificación de Canvas
+                if (document.querySelector('canvas')) {
+                    console.log("¡Éxito! El lienzo del juego ha sido creado.");
+                } else {
+                    console.warn("El lienzo sigue sin aparecer. Verifica que todos los .js estén en la raíz.");
+                }
             }, 1000);
-        });
+        };
     </script>
 </body>
 </html>

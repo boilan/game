@@ -3,18 +3,15 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crossy Road</title>
-    
+    <title>Crossy Road - Final Fix</title>
     <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="app-store-interstitial.css" />
     <link rel="stylesheet" href="8bitwonder.css" />
     <link rel="stylesheet" href="EditUndoBrk.css" />
 
     <script type="text/javascript">
-        // Simulación del SDK para evitar bloqueos
         window.PokiSDK = {
             init: function() { return Promise.resolve(); },
-            gameLoadingFinished: function() { console.log("PokiSDK: Carga finalizada"); },
+            gameLoadingFinished: function() { console.log("Juego listo"); },
             gameplayStart: function() {},
             gameplayStop: function() {},
             commercialBreak: function() { return Promise.resolve(); }
@@ -25,41 +22,23 @@
 
     <div id="container"></div>
 
-    <div class="worldSwitcher">
-        <button class="worldSwitcher__button" data-world="original" type="button">
-            <img alt="Original" src="original-s-v2.png" width="176" height="88">
-        </button>
-        <button class="worldSwitcher__button" data-world="space" type="button">
-            <img alt="Space" src="space-s-v2.png" width="176" height="88">
-        </button>
-        <button class="worldSwitcher__button" data-world="dinosaur" type="button">
-            <img alt="Dinosaur" src="dinosaur-blue-s-v2.png" width="176" height="88">
-        </button>
-    </div>
-
-    <script src="tween.min.js"></script> 
-    <script src="three.min.js"></script>
-    <script src="asset-loader.min.js"></script>
-    <script src="extra.min.js"></script>
-    <script src="game.min.js"></script>
-    <script src="bootstrap.min.js"></script>
-
-    <script>
+    <script src="tween.min.js"></script> <script src="three.min.js"></script> <script src="asset-loader.min.js"></script> <script src="extra.min.js"></script> <script src="game.min.js"></script> <script src="bootstrap.min.js"></script> <script>
+        // Este bloque obliga al navegador a reintentar si el canvas es null
         window.onload = function() {
-            console.log("Iniciando secuencia final...");
-            setTimeout(function() {
-                // Forzamos el aviso de carga terminada
-                if(window.PokiSDK) window.PokiSDK.gameLoadingFinished();
-                
-                // Despertamos al motor 3D
-                window.dispatchEvent(new Event('resize'));
-                
-                // Verificación de Canvas
-                if (document.querySelector('canvas')) {
-                    console.log("¡Éxito! El lienzo del juego ha sido creado.");
+            let intentos = 0;
+            const chequearCanvas = setInterval(function() {
+                const canvas = document.querySelector('canvas');
+                if (canvas) {
+                    console.log("¡Canvas creado!");
+                    window.dispatchEvent(new Event('resize'));
+                    clearInterval(chequearCanvas);
                 } else {
-                    console.warn("El lienzo sigue sin aparecer. Verifica que todos los .js estén en la raíz.");
+                    intentos++;
+                    console.log("Reintentando arranque... (Intento " + intentos + ")");
+                    // Forzamos el evento que bootstrap.min.js está esperando
+                    window.dispatchEvent(new Event('resize'));
                 }
+                if (intentos > 10) clearInterval(chequearCanvas);
             }, 1000);
         };
     </script>
